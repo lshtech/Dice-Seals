@@ -102,7 +102,7 @@ end
 -- This means that any other mod that touches the standard pack may be wiped out
 local card_open_ref = Card.open
 function Card:open()
-    if self.ability.set == "Booster" and self.ability.name:find('Standard') then
+    if self.ability.set == "Booster" and not self.ability.name:find('Standard') then
         return card_open_ref(self)
     else
         stop_use()
