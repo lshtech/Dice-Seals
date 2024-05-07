@@ -102,7 +102,7 @@ end
 -- This means that any other mod that touches the standard pack may be wiped out
 local card_open_ref = Card.open
 function Card:open()
-    if self.ability.set == "Booster" and not self.ability.name:find('Standard') then
+    if self.ability.set == "Booster" and self.ability.name:find('Standard') then
         return card_open_ref(self)
     else
         stop_use()
@@ -324,7 +324,7 @@ function generate_card_ui(_c, full_UI_table, specific_vars, card_type, badges, h
     return fromRef
 end
 
--- Add the background color of the box that says "Green Seal"
+-- Add the background color of the box that says "Dice Seal"
 local get_badge_colour_ref = get_badge_colour
 function get_badge_colour(key)
     local fromRef = get_badge_colour_ref(key)
