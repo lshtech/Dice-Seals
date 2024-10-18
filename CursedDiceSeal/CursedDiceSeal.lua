@@ -9,38 +9,67 @@
 
 local MOD_ID = 'CursedDiceSeal'
 
+SMODS.Atlas {
+    key = "curseddice_atlas",
+    path = "curseddice_seal.png",
+    px = 71,
+    py = 95
+}
+
+SMODS.Seal {
+    name = "curseddice_seal",
+    key = "CursedDice",
+    badge_colour = HEX("4f0c0d"),
+    loc_txt = {
+        -- Badge name (displayed on card description when seal is applied)
+        label = 'Cursed Dice Seal',
+        -- Tooltip description
+        name = 'Cursed Dice Seal',
+        text = {
+            "Discarding this seal:",
+            "Halves all {C:attention}listed",
+            "{C:red,E:1,S:1.1}probabilities",
+            "{C:inactive}(ex: {C:red}1 in 3{C:inactive} -> {C:red}1 in 6{C:inactive})",
+            "{C:dark_edition}Discarding removes all Cursed dice seals{}" 
+        }
+    },
+    atlas = "curseddice_atlas",
+    pos = {x=0, y=0},
+}
+
+
 
 function SMODS.INIT.CursedDiceSeal()
     _RELEASE_MODE = false
 
-    add_seal(
-        MOD_ID,
-        'CursedDice',
-        'curseddice_seal',
-        'Cursed Dice Seal',
-        {
-            discovered = false,
-            set = 'Seal',
-            config = {}
-        },
-        {
-            name = "Cursed Dice Seal",
-            text = {
-                "Discarding this seal:",
-                "Halves all {C:attention}listed",
-                "{C:red,E:1,S:1.1}probabilities",
-                "{C:inactive}(ex: {C:red}1 in 3{C:inactive} -> {C:red}1 in 6{C:inactive})",
-				"{C:dark_edition}Discarding removes all Cursed dice seals{}" 
-            }
-        }
-    )
+--    add_seal(
+--        MOD_ID,
+--        'CursedDice',
+--        'curseddice_seal',
+--        'Cursed Dice Seal',
+--        {
+--            discovered = false,
+--            set = 'Seal',
+--            config = {}
+--        },
+--        {
+--            name = "Cursed Dice Seal",
+--            text = {
+--                "Discarding this seal:",
+--                "Halves all {C:attention}listed",
+--                "{C:red,E:1,S:1.1}probabilities",
+--                "{C:inactive}(ex: {C:red}1 in 3{C:inactive} -> {C:red}1 in 6{C:inactive})",
+--				"{C:dark_edition}Discarding removes all Cursed dice seals{}" 
+--            }
+--        }
+--    )
 
     add_item(
         MOD_ID,
         'Spectral',
         'c_oops1',
         {
-            discovered = true,
+            discovered = false,
             cost = 4,
             consumeable = true,
             set = 'Spectral',
@@ -299,9 +328,9 @@ end
 
 -- UI code for seal
 local generate_card_ui_ref = generate_card_ui
-function generate_card_ui(_c, full_UI_table, specific_vars, card_type, badges, hide_desc, main_start, main_end)
+function generate_card_ui(_c, full_UI_table, specific_vars, card_type, badges, hide_desc, main_start, main_end, card)
     local fromRef = generate_card_ui_ref(_c, full_UI_table, specific_vars, card_type, badges, hide_desc, main_start,
-        main_end)
+        main_end, card)
 
     local info_queue = {}
 

@@ -9,38 +9,67 @@
 
 local MOD_ID = 'DiceSeal'
 
+SMODS.Atlas {
+    key = "diceseal_atlas",
+    path = "dice_seal.png",
+    px = 71,
+    py = 95
+}
+
+SMODS.Seal {
+    name = "dice_seal",
+    key = "Dice",
+    badge_colour = HEX("3eb25f"),
+    loc_txt = {
+        -- Badge name (displayed on card description when seal is applied)
+        label = 'Dice Seal',
+        -- Tooltip description
+        name = 'Dice Seal',
+        text = {
+            "Discarding this seal:",
+            "Doubles all {C:attention}listed",
+            "{C:green,E:1,S:1.1}probabilities",
+            "{C:inactive}(ex: {C:green}1 in 3{C:inactive} -> {C:green}2 in 3{C:inactive})",
+            "{C:dark_edition}Discarding removes all dice seals{}"
+        }
+    },
+    atlas = "diceseal_atlas",
+    pos = {x=0, y=0},
+}
+
+
 
 function SMODS.INIT.DiceSeal()
     _RELEASE_MODE = false
 
-    add_seal(
-        MOD_ID,
-        'Dice',
-        'dice_seal',
-        'Dice Seal',
-        {
-            discovered = false,
-            set = 'Seal',
-            config = {}
-        },
-        {
-            name = "Dice Seal",
-            text = {
-                "Discarding this seal:",
-                "Doubles all {C:attention}listed",
-                "{C:green,E:1,S:1.1}probabilities",
-                "{C:inactive}(ex: {C:green}1 in 3{C:inactive} -> {C:green}2 in 3{C:inactive})",
-				"{C:dark_edition}Discarding removes all dice seals{}"
-            }
-        }
-    )
+--    add_seal(
+--        MOD_ID,
+--        'Dice',
+--        'dice_seal',
+--        'Dice Seal',
+--        {
+--            discovered = false,
+--            set = 'Seal',
+--            config = {}
+--        },
+--        {
+--            name = "Dice Seal",
+--            text = {
+--                "Discarding this seal:",
+--                "Doubles all {C:attention}listed",
+--                "{C:green,E:1,S:1.1}probabilities",
+--                "{C:inactive}(ex: {C:green}1 in 3{C:inactive} -> {C:green}2 in 3{C:inactive})",
+--				"{C:dark_edition}Discarding removes all dice seals{}"
+--            }
+--        }
+--    )
 
     add_item(
         MOD_ID,
         'Spectral',
         'c_oops6',
         {
-            discovered = true,
+            discovered = false,
             cost = 4,
             consumeable = true,
             set = 'Spectral',
@@ -299,9 +328,9 @@ end
 
 -- UI code for seal
 local generate_card_ui_ref = generate_card_ui
-function generate_card_ui(_c, full_UI_table, specific_vars, card_type, badges, hide_desc, main_start, main_end)
+function generate_card_ui(_c, full_UI_table, specific_vars, card_type, badges, hide_desc, main_start, main_end, card)
     local fromRef = generate_card_ui_ref(_c, full_UI_table, specific_vars, card_type, badges, hide_desc, main_start,
-        main_end)
+        main_end, card)
 
     local info_queue = {}
 
